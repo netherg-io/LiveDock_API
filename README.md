@@ -18,17 +18,17 @@ LiveDock Monitoring API collects host and container telemetry, stores recent his
 
 All protected routes require `Authorization: Bearer <API_TOKEN>`.
 
-| Method | Path | Purpose |
-| --- | --- | --- |
-| `GET` | `/health` | Basic health check |
-| `GET` | `/api/snapshot` | Current host snapshot |
-| `GET` | `/api/history?minutes=15` | Historical host metrics |
-| `GET` | `/api/containers` | Container list |
-| `GET` | `/api/containers/{id}/history` | Container history |
-| `GET` | `/api/containers/{id}/logs?tail=200` | Recent container logs |
-| `POST` | `/api/containers/{id}/action` | `start`, `stop`, or `restart` a container |
-| `GET` | `/api/requests` | Request throughput and aggregates |
-| `GET` | `/api/hosts` | Registered host identifiers |
+| Method | Path                                 | Purpose                                   |
+| ------ | ------------------------------------ | ----------------------------------------- |
+| `GET`  | `/health`                            | Basic health check                        |
+| `GET`  | `/api/snapshot`                      | Current host snapshot                     |
+| `GET`  | `/api/history?minutes=15`            | Historical host metrics                   |
+| `GET`  | `/api/containers`                    | Container list                            |
+| `GET`  | `/api/containers/{id}/history`       | Container history                         |
+| `GET`  | `/api/containers/{id}/logs?tail=200` | Recent container logs                     |
+| `POST` | `/api/containers/{id}/action`        | `start`, `stop`, or `restart` a container |
+| `GET`  | `/api/requests`                      | Request throughput and aggregates         |
+| `GET`  | `/api/hosts`                         | Registered host identifiers               |
 
 ## Environment
 
@@ -77,6 +77,12 @@ services:
 ```
 
 Point the dashboard at `http://your-host:8080` and use the same `API_TOKEN` value.
+
+### Deploy through Dokploy
+
+On a push to `main` or a manual workflow run, CI publishes `ghcr.io/netherg-io/livedock-api:latest` and an immutable `sha-<commit>` tag, then calls the Dokploy Compose webhook. Set the repository Actions secret `DOKPLOY_WEBHOOK_URL` to the Monitoring Compose webhook and enable Auto Deploy in Dokploy. Keep the Compose image set to the published `:latest` path; the former `monitoring-api` image name is no longer published.
+
+The webhook URL is a secret. CI needs no Dokploy API key. A successful webhook queues the rollout; check the Compose deployment and `/health` afterward.
 
 ### Optional dependencies
 
