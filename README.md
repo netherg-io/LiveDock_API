@@ -18,17 +18,17 @@ LiveDock Monitoring API collects host and container telemetry, stores recent his
 
 All protected routes require `Authorization: Bearer <API_TOKEN>`.
 
-| Method | Path                                 | Purpose                                   |
-| ------ | ------------------------------------ | ----------------------------------------- |
-| `GET`  | `/health`                            | Basic health check                        |
-| `GET`  | `/api/snapshot`                      | Current host snapshot                     |
-| `GET`  | `/api/history?minutes=15`            | Historical host metrics                   |
-| `GET`  | `/api/containers`                    | Container list                            |
-| `GET`  | `/api/containers/{id}/history`       | Container history                         |
-| `GET`  | `/api/containers/{id}/logs?tail=200` | Recent container logs                     |
-| `POST` | `/api/containers/{id}/action`        | `start`, `stop`, or `restart` a container |
-| `GET`  | `/api/requests`                      | Request throughput and aggregates         |
-| `GET`  | `/api/hosts`                         | Registered host identifiers               |
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/health` | Basic health check |
+| `GET` | `/api/snapshot` | Current host snapshot |
+| `GET` | `/api/history?minutes=15` | Historical host metrics |
+| `GET` | `/api/containers` | Container list |
+| `GET` | `/api/containers/{id}/history` | Container history |
+| `GET` | `/api/containers/{id}/logs?tail=200` | Recent container logs |
+| `POST` | `/api/containers/{id}/action` | `start`, `stop`, or `restart` a container |
+| `GET` | `/api/requests` | Request throughput and aggregates |
+| `GET` | `/api/hosts` | Registered host identifiers |
 
 ## Environment
 
